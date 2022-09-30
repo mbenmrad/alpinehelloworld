@@ -100,10 +100,7 @@ pipeline {
       steps {
           script {
             sh '''
-              heroku container:login
-              heroku create $PRODUCTION || echo "project already exist"
-              heroku container:push -a $PRODUCTION web
-              heroku container:release -a $PRODUCTION web
+              DOCKER_CONTEXT=prod-docker docker run --name $IMAGE_NAME -d -p ${PORT_EXPOSED}:5000 -e PORT=5000 ${ID_DOCKER}/$IMAGE_NAME:$IMAGE_TAG
             '''
           }
         }
