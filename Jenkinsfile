@@ -51,7 +51,32 @@ pipeline {
              }
           }
      }
+     stage('scan image') {
+        agent any
 
+        steps {
+                // Install trivy
+                sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.18.3'
+                sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl'
+
+                // Scan all vuln levels
+                sh 'mkdir -p reports'
+                sh 'trivy image --ignore-unfixed --format template --template "@html.tpl" -o reports/${IMAGE_NAME}-scan.html ${ID_DOCKER}/$IMAGE_NAME:$IMAGE_TAG'
+                publishHTML target : [
+                    allowMissing: true,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports',
+                    reportFiles: '${IMAGE_NAME}-scan.html',
+                    reportName: 'Trivy Scan',
+                    reportTitles: 'Trivy Scan'
+                ]
+
+                // Scan again and fail on CRITICAL vulns
+                sh 'trivy image --ignore-unfixed --exit-code 1 --severity CRITICAL ${ID_DOCKER}/$IMAGE_NAME:$IMAGE_TAG'
+
+            }
+	}
      stage ('Login and Push Image on docker hub') {
           agent any
           environment {
