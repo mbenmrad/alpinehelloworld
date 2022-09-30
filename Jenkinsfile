@@ -100,6 +100,7 @@ pipeline {
       steps {
           script {
             sh '''
+              DOCKER_CONTEXT=prod-docker docker rm -f $IMAGE_NAME || echo "container does not exist"
               DOCKER_CONTEXT=prod-docker docker run --name $IMAGE_NAME -d -p ${PORT_EXPOSED}:5000 -e PORT=5000 ${ID_DOCKER}/$IMAGE_NAME:$IMAGE_TAG
             '''
           }
