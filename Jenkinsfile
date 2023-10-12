@@ -5,9 +5,8 @@ pipeline {
             steps {
                 script {
                     sshUserPwdCredentials = credentials('idSSH') // Utilisez le nom du credential créé
-                    echo "Nom d'utilisateur du credential : ${sshUserPwdCredentials.username}"
                     sh """
-                        echo "Nom d'utilisateur du credential : ${sshUserPwdCredentials.username}"
+                        echo "Hello"
                     """
                 }
             }
