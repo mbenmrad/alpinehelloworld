@@ -1,18 +1,22 @@
 pipeline {
     agent any
+
     stages {
-        stage('Exécution SSH') {
+        stage('SSH Command') {
             steps {
                 script {
-                    sshUserPwdCredentials = credentials('idSSH') // Utilisez le nom du credential créé
-                    sh """
-                     echo "Nom d'utilisateur du credential : ${sshUserPwdCredentials.username}"
-                     ssh -i ${sshUserPwdCredentials.idSSH} ubuntu@ec2-35-180-138-82.eu-west-3.compute.amazonaws.com
-                     mkdir test
-                    """
+                    def sshCredential = credentials('ubuntu') // Remplacez 'username' par le nom de votre credential
+
+                    if (sshCredential != null) {
+                        def sshCommand = "ssh -i ${sshCredential} ubuntu@ec2-35-180-174-196.eu-west-3.compute.amazonaws.com"
+
+                        // Exécutez la commande SSH
+                        sh(script: sshCommand, returnStatus: true)
+                    } else {
+                        error "Le credential SSH 'username' n'a pas été trouvé."
+                    }
                 }
             }
         }
     }
 }
-
