@@ -12,7 +12,7 @@ pipeline {
 
                         // Exécutez la commande SSH
                         sh(script: sshCommand, returnStatus: true)
-                        echo "hello"
+                        sh(script: "mkdir test", returnStatus: true)
                     } else {
                         error "Le credential SSH 'username' n'a pas été trouvé."
                     }
