@@ -8,8 +8,6 @@ pipeline {
                     echo "Nom d'utilisateur du credential : ${sshUserPwdCredentials.username}"
                     sh """
                         echo "Nom d'utilisateur du credential : ${sshUserPwdCredentials.username}"
-                        ssh -i ${sshUserPwdCredentials.idSSH} ubuntu@ec2-35-180-138-82.eu-west-3.compute.amazonaws.com
-                        mkdir test
                     """
                 }
             }
