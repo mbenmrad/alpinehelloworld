@@ -11,7 +11,10 @@ pipeline {
                         def sshCommand = "ssh -i ${sshCredential} ubuntu@ec2-35-180-174-196.eu-west-3.compute.amazonaws.com"
 
                         // Exécutez la commande SSH
-                        sh "${sshCommand} 'ls'"
+                         def sshOutput = sh(script: "${sshCommand} 'ls'", returnStdout: true)
+
+                        echo "Liste des fichiers sur l'instance distante :"
+                        echo sshOutput
                     } else {
                         error "Le credential SSH 'username' n'a pas été trouvé."
                     }
