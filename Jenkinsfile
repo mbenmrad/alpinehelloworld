@@ -8,8 +8,7 @@ pipeline {
                     def sshCredential = credentials('ubuntu')
 
                     if (sshCredential != null) {
-                        echo "Nom d'utilisateur : ${sshCredential.username}"
-                        echo "Description : ${sshCredential.description}"
+                        echo "Nom d'utilisateur : ${sshCredential}"
                         def sshCommand = "ssh -i ${sshCredential} ubuntu@ec2-35-180-174-196.eu-west-3.compute.amazonaws.com"
 
                         // Exécutez la commande SSH pour lister les fichiers et stockez la sortie dans la variable stdout
