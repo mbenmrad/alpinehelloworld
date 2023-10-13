@@ -11,7 +11,7 @@ pipeline {
                         def sshCommand = "ssh -i ${sshCredential} ubuntu@ec2-35-180-174-196.eu-west-3.compute.amazonaws.com"
 
                         // Exécutez la commande SSH
-                         def sshOutput = sh(script: "${sshCommand} +'ls'", returnStdout: true)
+                         def sshOutput = sh(script: "${sshCommand}", returnStdout: true)
 
                         echo "Liste des fichiers sur l'instance distante :"
                         echo sshOutput
