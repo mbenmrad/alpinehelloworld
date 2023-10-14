@@ -4,8 +4,8 @@ stages {
 stage('Deploy') {
 steps {
 // Créer une tâche CodeDeploy
-  echo "HEllo"
-docker ps
+echo "HEllo"
+sh 'docker ps -a'
 }
 }
 }
