@@ -4,9 +4,9 @@ stages {
 stage('Deploy') {
 steps {
  script {
-  withCredentials([sshUserPrivateKey(credentialsId: 'monid', keyFileVariable: 'idssh')]) {
+  withCredentials([sshUserPrivateKey(credentialsId: 'monid', keyFileVariable: 'hh')]) {
   // Vous pouvez maintenant utiliser PRIVATE_KEY dans vos commandes SSH.
-   sh "ssh -i \$idssh ubuntu@ec2-13-38-120-217.eu-west-3.compute.amazonaws.com 'docker ps -a'"
+   sh "ssh -i \$hh ubuntu@ec2-13-38-120-217.eu-west-3.compute.amazonaws.com 'docker ps -a'"
             }
         }
 }
