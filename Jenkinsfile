@@ -53,7 +53,7 @@ pipeline {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: '13.38.120.217', keyFileVariable: 'UBUNTU')]) {
                         // Vous pouvez maintenant utiliser UBUNTU dans vos commandes SSH.
-                        sh """ssh -o StrictHostKeyChecking=no -i \${UBUNTU} ubuntu@ec2-13-38-249-222.eu-west-3.compute.amazonaws.com 'docker run --name myapp -d -p 8084:5000 eazytraining/$IMAGE_NAME:$IMAGE_TAG'"""
+                        sh """ssh -o StrictHostKeyChecking=no -i \${UBUNTU} ubuntu@ec2-13-38-249-222.eu-west-3.compute.amazonaws.com 'docker run --name myapp -d -p 8084:5000 -e PORT=5000 eazytraining/$IMAGE_NAME:$IMAGE_TAG'"""
                          sh """ssh -o StrictHostKeyChecking=no -i \${UBUNTU} ubuntu@ec2-13-38-249-222.eu-west-3.compute.amazonaws.com 'docker ps'"""
                     }
                 }
