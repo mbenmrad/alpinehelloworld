@@ -48,6 +48,7 @@ pipeline {
           }
      }
      stage('Deploy') {
+           agent any
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: '13.38.120.217', keyFileVariable: 'UBUNTU')]) {
